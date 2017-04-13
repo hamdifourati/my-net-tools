@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 
 from scapy.all import Dot11, sniff
 
@@ -33,6 +34,11 @@ class Scanner(object):
                     print "AP MAC: %s, SSID: %s" % (pkt.addr2, pkt.info)
 
 if __name__ == "__main__":
-    scanner = Scanner("mon0")
+    if (len(sys.argv) < 2):
+        dev = "mon0"
+    else:
+        dev = sys.argv[1]
+
+    scanner = Scanner(dev)
     scanner.scan()
     inp = raw_input("Press enter to exit..\n")
